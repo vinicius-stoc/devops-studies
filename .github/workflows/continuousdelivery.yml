@@ -10,7 +10,7 @@ permissions:
   actions: read
 
 jobs:
-  delivery:
+  deliver:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -23,3 +23,13 @@ jobs:
           path: |
             '**.py'
             README.md
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: deliver
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: projetozipado.zip
+      - name: Display structure of downloaded files
+        run: ls -R
